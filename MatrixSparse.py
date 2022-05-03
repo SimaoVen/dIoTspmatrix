@@ -9,11 +9,12 @@ class MatrixSparse(Matrix):
     _zero = float
 
     def __init__(self, zero):
-        pass
+        self._zero = zero
+        #pass
 
     @property
     def zero(self) -> float:
-        pass
+        return self._zero
 
     @zero.setter
     def zero(self, val: float):
