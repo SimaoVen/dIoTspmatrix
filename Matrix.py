@@ -7,27 +7,29 @@ class Matrix(ABC):
 
     @abstractmethod
     def __getitem__(self, item):
-        raise NotImplementedError
+        return self._matrix[item]
 
     @abstractmethod
     def __setitem__(self, key, value):
-        raise NotImplementedError
+        self._matrix[key] = value
 
     @abstractmethod
     def __iter__(self):
-        raise NotImplementedError
+        return self
 
     @abstractmethod
     def __next__(self):
-        raise NotImplementedError
+        if not hasattr(self, '_iter'):
+            self._iter = iter(self._matrix)
+        return next(self._iter)
 
     @abstractmethod
     def __copy__(self):
-        raise NotImplementedError
+        return self._matrix
 
     @abstractmethod
     def __eq__(self, other):
-        raise NotImplementedError
+        return self == other
 
     def __add__(self, other):
         if isinstance(other, (int, float)):
