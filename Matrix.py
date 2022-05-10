@@ -7,29 +7,27 @@ class Matrix(ABC):
 
     @abstractmethod
     def __getitem__(self, item):
-        return self._matrix[item]
+        raise NotImplementedError
 
     @abstractmethod
     def __setitem__(self, key, value):
-        self._matrix[key] = value
+        raise NotImplementedError
 
     @abstractmethod
     def __iter__(self):
-        return self
+        raise NotImplementedError
 
     @abstractmethod
     def __next__(self):
-        if not hasattr(self, '_iter'):
-            self._iter = iter(self._matrix)
-        return next(self._iter)
+        raise NotImplementedError
 
     @abstractmethod
     def __copy__(self):
-        return self._matrix
+        raise NotImplementedError
 
     @abstractmethod
     def __eq__(self, other):
-        return self == other
+        raise NotImplementedError
 
     def __add__(self, other):
         if isinstance(other, (int, float)):
@@ -62,7 +60,17 @@ class Matrix(ABC):
         raise NotImplementedError
 
     def __str__(self):
-        pass
+        dim = self.dim()
+        string = ""
+        if dim != ():
+            for row in range(dim[0][0], dim[1][0] + 1):
+                for col in range(dim[0][1], dim[1][1] + 1):
+                    string += "%1.f" % self[Position(row, col)]
+                    if col < dim[1][1]:
+                        string += " "
+                if row < dim[1][0]:
+                    string += "\n"
+        return string
 
     @abstractmethod
     def dim(self) -> tuple[Position, ...]:

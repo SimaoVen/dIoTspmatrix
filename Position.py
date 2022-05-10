@@ -2,27 +2,21 @@ from __future__ import annotations
 
 
 class Position:
-    _pos = (int, int)
+    _pos = tuple[int, int]
 
-    def init(self, row: int, col: int):
-        if(type(row) is int  and row >= 0  and type(col) is int  and col >= 0):
-            self._pos = (row,col)
-        elif(type[row] is float and row >= 0 and type(col) is float and col >= 0):
-            if(row - int(row) != 0 and col - int(col) != 0 and col >= 0 and row >= 0):
-                self._pos = (int(row),int(col))
-            else:
-                raise ValueError('init() invalid arguments')
-        else:
-            raise ValueError('init() invalid arguments')
+    def __init__(self, row: int, col: int):
+        if not (type(row) is int and row >= 0) or not (type(col) is int and col >= 0):
+            raise ValueError('__init__() invalid arguments')
+        self._pos = (row, col)
 
-    def str(self):
-        return '(' + str(self._pos[0]) + ', ' + str(self._pos[1]) + ')'
+    def __str__(self):
+        return "(" + str(self._pos[0]) + ", " + str(self._pos[1]) + ")"
 
-    def getitem(self, item: int) -> int:
-        if(item >= 0 and item <= 1):
+    def __getitem__(self, item: int) -> int:
+        if isinstance(item, int) and (item in (0, 1)):
             return self._pos[item]
         else:
-            raise ValueError('getitem() invalid arguments')
+            raise ValueError('__getitem__() invalid arguments')
 
-    def eq(self, other: Position):
-        return self._pos == other
+    def __eq__(self, other: Position):
+        return self._pos == other._pos

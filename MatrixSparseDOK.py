@@ -2,41 +2,60 @@ from __future__ import annotations
 from MatrixSparse import *
 from Position import *
 
-spmatrix = dict[Position, float]
-
+#spmatrix = dict[Position, float]
 
 class MatrixSparseDOK(MatrixSparse):
-    _items = spmatrix
+    #_items = spmatrix
 
     def __init__(self, zero: float = 0.0):
-        pass
+        self._items = ({}, zero)
 
     def __copy__(self):
-        pass
+        return self._items
 
     def __eq__(self, other: MatrixSparseDOK):
-        pass
+        return self._items == other
 
     def __iter__(self):
-        pass
+        self.matrix_iter = []
+        for pos1, value in self._items[0].keys():
+            for pos2 in self._items[0].keys():
+                if pos2 < pos1:
+                    break
+                if pos2 == pos1:
+
 
     def __next__(self):
-        pass
+        return next(self.__iter__)
 
     def __getitem__(self, pos: [Position, position]) -> float:
-        pass
+        if pos in self._items[0].keys():
+            return self._items[1]
+        else:
+            return self.zero()
 
     def __setitem__(self, pos: [Position, position], val: [int, float]):
-        pass
+        if pos in self._items[0].keys():
+            zero = self.zero()
+            if float(val) == zero:
+                del self._items[0]
+            else:
+                self._items[1].update(float(val))
+        else:
+            self._items[0] = float(val)
+
 
     def __len__(self) -> int:
-        pass
+        return len(self._items)
 
     def _add_number(self, other: [int, float]) -> Matrix:
-        pass
+        while self._items[0].keys():
+            self._items[1] += other
+        return self._items
 
     def _add_matrix(self, other: MatrixSparse) -> MatrixSparse:
-        pass
+        while other[0].keys():
+            if other[0].keys()
 
     def _mul_number(self, other: [int, float]) -> Matrix:
         pass

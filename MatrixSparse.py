@@ -20,17 +20,20 @@ class MatrixSparse(Matrix):
 
     @zero.setter
     def zero(self, val: float):
-        if(type(val) is float or type(val) is int):
-            self._zero = float(val)
-        else:
-            raise ValueError("zero() invalid arguments")
+        self._zero = val
 
     @abstractmethod
     def __len__(self) -> int:
         raise NotImplementedError
 
     def sparsity(self) -> float:
-        pass
+        dim = self.dim()
+        if dim:
+            w = self.dim[1].__getitem__(1) - self.dim[0].__getitem__(1) + 1
+            h = self.dim[1].__getitem__(0) - self.dim[0].__getitem__(0) + 1
+            return float((w * h - self.__len__()) / (w * h))
+        return 1.0
+
 
     @staticmethod
     @abstractmethod
