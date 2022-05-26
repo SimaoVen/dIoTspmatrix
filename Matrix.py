@@ -37,7 +37,7 @@ class Matrix(ABC):
         raise ValueError('_add__ invalid argument')
 
     @abstractmethod
-    def _add_number(self, other: [int, float]) -> Matrix:
+    def _add_number(self, other: list[int, float]) -> Matrix:
         raise NotImplementedError
 
     @abstractmethod
@@ -52,7 +52,7 @@ class Matrix(ABC):
         raise ValueError('__mul__ invalid argument')
 
     @abstractmethod
-    def _mul_number(self, other: [int, float]) -> Matrix:
+    def _mul_number(self, other: list[int, float]) -> Matrix:
         raise NotImplementedError
 
     @abstractmethod
@@ -65,7 +65,7 @@ class Matrix(ABC):
         if dim != ():
             for row in range(dim[0][0], dim[1][0] + 1):
                 for col in range(dim[0][1], dim[1][1] + 1):
-                    string += "%1.f" % self[Position(row, col)]
+                    string += str(self[Position(row, col)])
                     if col < dim[1][1]:
                         string += " "
                 if row < dim[1][0]:
