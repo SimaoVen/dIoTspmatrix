@@ -10,7 +10,7 @@ class MatrixSparse(Matrix):
 
     def __init__(self, zero):
         if(type(zero) is float or type(zero) is int):
-            self._zero = float(zero)
+            self._zero = zero
         else:
             raise ValueError("__init__() invalid arguments")
 
@@ -29,8 +29,10 @@ class MatrixSparse(Matrix):
     def sparsity(self) -> float:
         dim = self.dim()
         if dim:
-            w = self.dim[1].__getitem__(1) - self.dim[0].__getitem__(1) + 1
-            h = self.dim[1].__getitem__(0) - self.dim[0].__getitem__(0) + 1
+            min = dim[0]
+            max = dim[1]
+            w = max[0] - min[0] + 1
+            h = max[1] - min[1] + 1
             return float((w * h - self.__len__()) / (w * h))
         return 1.0
 
