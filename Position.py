@@ -12,6 +12,12 @@ class Position:
     def __str__(self):
         return "(" + str(self._pos[0]) + ", " + str(self._pos[1]) + ")"
 
+    def __repr__(self):
+        return str(self._pos)
+
+    def __hash__(self):
+        return hash(self._pos)
+
     def __getitem__(self, item: int) -> int:
         if isinstance(item, int) and (item in (0, 1)):
             return self._pos[item]
@@ -19,4 +25,4 @@ class Position:
             raise ValueError('__getitem__() invalid arguments')
 
     def __eq__(self, other: Position):
-        return self._pos == other._pos
+        return self[0] == other[0] and self[1] == other[1]
