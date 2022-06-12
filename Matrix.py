@@ -29,6 +29,10 @@ class Matrix(ABC):
     def __eq__(self, other):
         raise NotImplementedError
 
+    #Description: Depending if the parameter "other" is a int/float or a Matrix,
+    #             it chooses to call the function _add_number() or _add_matrix().
+    #Parameters: other -> int/float/Matrix
+    #Return: Matrix
     def __add__(self, other):
         if isinstance(other, (int, float)):
             return self._add_number(other)
@@ -37,13 +41,17 @@ class Matrix(ABC):
         raise ValueError('_add__ invalid argument')
 
     @abstractmethod
-    def _add_number(self, other: [int, float]) -> Matrix:
+    def _add_number(self, other: list[int, float]) -> Matrix:
         raise NotImplementedError
 
     @abstractmethod
     def _add_matrix(self, val: Matrix) -> Matrix:
         raise NotImplementedError
 
+    #Description: Depending if the parameter "other" is a int/float or a Matrix,
+    #             it chooses to call the function _mul_number() or _mul_matrix().
+    #Parameters: other -> int/float/Matrix
+    #Return: Matrix
     def __mul__(self, other):
         if isinstance(other, (int, float)):
             return self._mul_number(other)
@@ -52,20 +60,23 @@ class Matrix(ABC):
         raise ValueError('__mul__ invalid argument')
 
     @abstractmethod
-    def _mul_number(self, other: [int, float]) -> Matrix:
+    def _mul_number(self, other: list[int, float]) -> Matrix:
         raise NotImplementedError
 
     @abstractmethod
     def _mul_matrix(self, other: Matrix) -> Matrix:
         raise NotImplementedError
 
+    #Description: Puts the matrix into a string format.
+    #Parameters:
+    #Return: string -> string
     def __str__(self):
         dim = self.dim()
         string = ""
         if dim != ():
             for row in range(dim[0][0], dim[1][0] + 1):
                 for col in range(dim[0][1], dim[1][1] + 1):
-                    string += "%1.f" % self[Position(row, col)]
+                    string += str(self[Position(row, col)])
                     if col < dim[1][1]:
                         string += " "
                 if row < dim[1][0]:
