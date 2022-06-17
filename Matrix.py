@@ -29,7 +29,11 @@ class Matrix(ABC):
     def __eq__(self, other):
         raise NotImplementedError
 
+<<<<<<< HEAD
     #Description: Depending if the parameter "other" is a int/float or a Matrix, 
+=======
+    #Description: Depending if the parameter "other" is a int/float or a Matrix,
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     #             it chooses to call the function _add_number() or _add_matrix().
     #Parameters: other -> int/float/Matrix
     #Return: Matrix
@@ -48,7 +52,11 @@ class Matrix(ABC):
     def _add_matrix(self, val: Matrix) -> Matrix:
         raise NotImplementedError
 
+<<<<<<< HEAD
     #Description: Depending if the parameter "other" is a int/float or a Matrix, 
+=======
+    #Description: Depending if the parameter "other" is a int/float or a Matrix,
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     #             it chooses to call the function _mul_number() or _mul_matrix().
     #Parameters: other -> int/float/Matrix
     #Return: Matrix
@@ -68,7 +76,11 @@ class Matrix(ABC):
         raise NotImplementedError
 
     #Description: Puts the matrix into a string format.
+<<<<<<< HEAD
     #Parameters: 
+=======
+    #Parameters:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     #Return: string -> string
     def __str__(self):
         dim = self.dim()

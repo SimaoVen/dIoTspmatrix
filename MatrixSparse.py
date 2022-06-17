@@ -10,7 +10,11 @@ class MatrixSparse(Matrix):
 
     #Description: Initializes the object (MatrixSparse) attributes (zero)
     #Parameters: zero -> All types
+<<<<<<< HEAD
     #Return: 
+=======
+    #Return:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def __init__(self, zero):
         if(type(zero) is float or type(zero) is int):
             self._zero = zero
@@ -26,7 +30,11 @@ class MatrixSparse(Matrix):
 
     #Description: Sets the zero of the matrix with the value of the parameter (val)
     #Parameters: val -> float
+<<<<<<< HEAD
     #Return: 
+=======
+    #Return:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     @zero.setter
     def zero(self, val: float):
         self._zero = val
@@ -36,7 +44,11 @@ class MatrixSparse(Matrix):
         raise NotImplementedError
 
     #Description: Returns the sparsity by calculating it.
+<<<<<<< HEAD
     #Parameters: 
+=======
+    #Parameters:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     #Return: float
     def sparsity(self) -> float:
         dim = self.dim()

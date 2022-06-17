@@ -1,21 +1,36 @@
 from __future__ import annotations
+<<<<<<< HEAD
+=======
+from asyncio.windows_events import NULL
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
 from sys import getsizeof
 from MatrixSparse import *
 from Position import *
 
 spmatrix = dict[Position, float]
+<<<<<<< HEAD
+=======
+
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
 
 class MatrixSparseDOK(MatrixSparse):
     _items = spmatrix
 
+<<<<<<< HEAD
     #Description: initialize the matrix sparse
     #Parameters: zero -> float
     #Return:
+=======
+    # Description: initialize the matrix sparse
+    # Parameters: zero -> float
+    # Return:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def __init__(self, zero: float = 0):
         self.index = -1
         self._items = {}
         super(MatrixSparseDOK, self).__init__(zero)
 
+<<<<<<< HEAD
     #Description: returns the matrix sparse in order to make a copy
     #Parameters: 
     #Return: MatrixSparseDOK
@@ -38,6 +53,30 @@ class MatrixSparseDOK(MatrixSparse):
     #Description: Points to the next position of the iterator
     #Parameters: 
     #Return: self.it[self.index] -> position
+=======
+    # Description: returns the matrix sparse in order to make a copy
+    # Parameters:
+    # Return: MatrixSparseDOK
+    def __copy__(self):
+        return MatrixSparseDOK(self._zero)
+
+    # Description: checks if the given matrix "other" is equal to the current matrix
+    # Parameters: other -> MatrixSparseDOK
+    # Return: Boolean
+    def __eq__(self, other: MatrixSparseDOK):
+        return self._items == other
+
+    # Description: returns the dictionary with the iteration
+    # Parameters:
+    # Return: self
+    def __iter__(self):
+        self.it = sorted(self._items.keys(), key=lambda k: [k[0], k[1]])
+        return self
+
+    # Description: Points to the next position of the iterator
+    # Parameters:
+    # Return: self.it[self.index] -> position
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def __next__(self):
         self.index += 1
         if self.index == len(self.it):
@@ -45,21 +84,32 @@ class MatrixSparseDOK(MatrixSparse):
             raise StopIteration
         return self.it[self.index]
 
+<<<<<<< HEAD
     #Description: Sets the zero of the MatrixSparse to the parameter val. The positions in the dictionary with the new value are removed from it.
     #Parameters: val -> float
     #Return:
+=======
+    # Description: Sets the zero of the MatrixSparse to the parameter val. The positions in the dictionary with the new value are removed from it.
+    # Parameters: val -> float
+    # Return:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     @MatrixSparse.zero.setter
     def zero(self, val: float):
         if isinstance(val, float):
             MatrixSparse.zero.fset(self, val)
             newMS = self._items.copy()
             for pos in self._items.keys():
+<<<<<<< HEAD
                 if(self._items[pos] == val):
+=======
+                if (self._items[pos] == val):
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
                     newMS.pop(pos)
             self._items = newMS.copy()
         else:
             raise ValueError('zero() invalid arguments')
 
+<<<<<<< HEAD
     #Description: Returns the value of a position. 
     #             It checks if the position in the parameters is valid and than it gives the value of that position depending if it is in the dictionary, 
     #             if it isnt than the value is a zero of the matrix.
@@ -69,6 +119,17 @@ class MatrixSparseDOK(MatrixSparse):
         if not(isinstance(pos, Position) or isinstance(pos, tuple) and len(pos) == 2):
             raise ValueError('__getitem__() invalid arguments')
         if not(isinstance(pos[0], int) and isinstance(pos[1], int) and pos[0] >= 0 and pos[1] >= 0):
+=======
+    # Description: Returns the value of a position.
+    #             It checks if the position in the parameters is valid and than it gives the value of that position depending if it is in the dictionary,
+    #             if it isnt than the value is a zero of the matrix.
+    # Parameters: pos -> [Position, position]
+    # Return: val -> int
+    def __getitem__(self, pos: [Position, position]) -> float:
+        if not (isinstance(pos, Position) or isinstance(pos, tuple) and len(pos) == 2):
+            raise ValueError('__getitem__() invalid arguments')
+        if not (isinstance(pos[0], int) and isinstance(pos[1], int) and pos[0] >= 0 and pos[1] >= 0):
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
             raise ValueError('__getitem__() invalid arguments')
 
         if pos in self._items.keys():
@@ -76,6 +137,7 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             return self.zero
 
+<<<<<<< HEAD
     #Description: Sets the value of a position, both given in the parameters. 
     #             It checks if the position and value are valid. 
     #             If the value is equal to zero than the position will be removed from the dictionary, 
@@ -86,12 +148,26 @@ class MatrixSparseDOK(MatrixSparse):
         if not(isinstance(pos, Position) or isinstance(pos, tuple) and len(pos) == 2):
             raise ValueError('__setitem__() invalid arguments')
         if not(isinstance(val, (int, float))) or not((val >= 0) and isinstance(pos[0], int) and isinstance(pos[1], int) and pos[0] >= 0 and pos[1] >= 0):
+=======
+    # Description: Sets the value of a position, both given in the parameters.
+    #             It checks if the position and value are valid.
+    #             If the value is equal to zero than the position will be removed from the dictionary,
+    #             if isnt than the position is created or updated in the dictionary with the given value.
+    # Parameters: pos -> [Position, position], val -> [int,float}
+    # Return:
+    def __setitem__(self, pos: [Position, position], val: [int, float]):
+        if not (isinstance(pos, Position) or isinstance(pos, tuple) and len(pos) == 2):
+            raise ValueError('__setitem__() invalid arguments')
+        if not (isinstance(val, (int, float))) or not (
+                (val >= 0) and isinstance(pos[0], int) and isinstance(pos[1], int) and pos[0] >= 0 and pos[1] >= 0):
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
             raise ValueError('__setitem__() invalid arguments')
 
         if float(val) == self.zero:
             if pos in self._items.keys():
                 self._items.pop(pos)
         else:
+<<<<<<< HEAD
             self._items.update({pos:float(val)})
 
     #Description: Return the lenght of the dictionary
@@ -104,6 +180,20 @@ class MatrixSparseDOK(MatrixSparse):
     #             Returns the matrix resulted of that addition.
     #Parameters: other -> [int, float]
     #Return: newM -> Matrix
+=======
+            self._items.update({pos: float(val)})
+
+    # Description: Return the lenght of the dictionary
+    # Parameters:
+    # Return: len(self._items) -> int
+    def __len__(self) -> int:
+        return len(self._items)
+
+    # Description: Adds a number in the parameters(other) to the value of each position in the dictionary(matrix).
+    #             Returns the matrix resulted of that addition.
+    # Parameters: other -> [int, float]
+    # Return: newM -> Matrix
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def _add_number(self, other: [int, float]) -> Matrix:
         if isinstance(other, (int, float)):
             newM = MatrixSparseDOK(self.zero)
@@ -114,11 +204,19 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('_add_number() invalid arguments')
 
+<<<<<<< HEAD
     #Description: Adds two matrixs, being one from the parameters(other).
     #             It checks if the matrixs are compatible being verifying if the zeros are equals. 
     #             Returns the matrix resulted of that addition.
     #Parameters: other -> MatrixSparse
     #Return: newM -> MatrixSparse
+=======
+    # Description: Adds two matrixs, being one from the parameters(other).
+    #             It checks if the matrixs are compatible being verifying if the zeros are equals.
+    #             Returns the matrix resulted of that addition.
+    # Parameters: other -> MatrixSparse
+    # Return: newM -> MatrixSparse
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def _add_matrix(self, other: MatrixSparse) -> MatrixSparse:
         newM = MatrixSparseDOK(self.zero)
         if self.zero == other.zero:
@@ -138,10 +236,17 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('_add_matrix() incompatible matrices')
 
+<<<<<<< HEAD
     #Description: Multiplies a number in the parameters(other) to the value of each position in the dictionary(matrix).
     #             Returns the matrix resulted of that multiply.
     #Parameters: other -> list[int, float]
     #Return: newM -> Matrix
+=======
+    # Description: Multiplies a number in the parameters(other) to the value of each position in the dictionary(matrix).
+    #             Returns the matrix resulted of that multiply.
+    # Parameters: other -> list[int, float]
+    # Return: newM -> Matrix
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def _mul_number(self, other: list[int, float]) -> Matrix:
         newM = MatrixSparseDOK(self.zero)
         if isinstance(other, (int, float)):
@@ -155,11 +260,19 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('_mul_number() invalid arguments')
 
+<<<<<<< HEAD
     #Description: Multiplies two matrixs, being one from the parameters(other).
     #             It checks if the matrixs are compatible being verifying if the zeros are equals. 
     #             Returns the matrix resulted of that addition.
     #Parameters: other -> MatrixSparse
     #Return: newM -> MatrixSparse
+=======
+    # Description: Multiplies two matrixs, being one from the parameters(other).
+    #             It checks if the matrixs are compatible being verifying if the zeros are equals.
+    #             Returns the matrix resulted of that addition.
+    # Parameters: other -> MatrixSparse
+    # Return: newM -> MatrixSparse
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def _mul_matrix(self, other: MatrixSparse) -> MatrixSparse:
         newM = MatrixSparseDOK(self.zero)
 
@@ -189,7 +302,11 @@ class MatrixSparseDOK(MatrixSparse):
                                 value_other = other[row_other, col_other]
                             except Exception as e:
                                 value_other = 0
+<<<<<<< HEAD
                             newM[row_items, col_other] += value_items*value_other
+=======
+                            newM[row_items, col_other] += value_items * value_other
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
                             row_other += 1
                             col_items += 1
                         col_other += 1
@@ -203,14 +320,22 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('_mul_matrix() incompatible matrices')
 
+<<<<<<< HEAD
     #Description: Finds the minimum and maximum positions of the matrix and returns them, in order to know what the matrix dimensions are.
     #             If there are no keys, it returns nothing.
     #Parameters: 
     #Return: [(h_min, w_min), (h_max, w_max)] -> tuple[Position, Position]
+=======
+    # Description: Finds the minimum and maximum positions of the matrix and returns them, in order to know what the matrix dimensions are.
+    #             If there are no keys, it returns nothing.
+    # Parameters:
+    # Return: [(h_min, w_min), (h_max, w_max)] -> tuple[Position, Position]
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def dim(self) -> tuple[Position, ...]:
         keys = self._items.keys()
         w_max, w_min, h_max, h_min = 0, 0, 0, 0
         if keys:
+<<<<<<< HEAD
             itr = sorted(self._items.keys(), key=lambda k:[k[0], k[1]])
             itr_len = len(itr)
             notitr = sorted(self._items.keys(), key=lambda k:[k[1], k[0]])
@@ -225,6 +350,22 @@ class MatrixSparseDOK(MatrixSparse):
     #Description: Separates the row with the value "row" from the rest of the matrix and returns a matrix with just that row. 
     #Parameters: row -> int
     #Return: newM -> MatrixSparseDOK
+=======
+            itr = sorted(self._items.keys(), key=lambda k: [k[0], k[1]])
+            itr_len = len(itr)
+            notitr = sorted(self._items.keys(), key=lambda k: [k[1], k[0]])
+            notitr_len = len(notitr)
+            w_min = notitr[0][1]
+            w_max = notitr[notitr_len - 1][1]
+            h_min = itr[0][0]
+            h_max = itr[itr_len - 1][0]
+            return [(h_min, w_min), (h_max, w_max)]
+        return ()
+
+    # Description: Separates the row with the value "row" from the rest of the matrix and returns a matrix with just that row.
+    # Parameters: row -> int
+    # Return: newM -> MatrixSparseDOK
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def row(self, row: int) -> MatrixSparseDOK:
         newM = MatrixSparseDOK(self.zero)
         if isinstance(row, int):
@@ -237,9 +378,15 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('row() incompatible matrices')
 
+<<<<<<< HEAD
     #Description: Separates the column with the value "col" from the rest of the matrix and returns a matrix with just that column. 
     #Parameters: col -> int
     #Return: newM -> MatrixSparseDOK
+=======
+    # Description: Separates the column with the value "col" from the rest of the matrix and returns a matrix with just that column.
+    # Parameters: col -> int
+    # Return: newM -> MatrixSparseDOK
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def col(self, col: int) -> MatrixSparseDOK:
         newM = MatrixSparseDOK(self.zero)
         if isinstance(col, int):
@@ -252,9 +399,15 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('row() incompatible matrices')
 
+<<<<<<< HEAD
     #Description: Returns a matrix with the same diagonal and the rest positions with the matrix zero.
     #Parameters: 
     #Return: newM -> MatrixSparseDOK
+=======
+    # Description: Returns a matrix with the same diagonal and the rest positions with the matrix zero.
+    # Parameters:
+    # Return: newM -> MatrixSparseDOK
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def diagonal(self) -> MatrixSparseDOK:
         newM = MatrixSparseDOK(self.zero)
         for keys in self._items.keys():
@@ -264,12 +417,22 @@ class MatrixSparseDOK(MatrixSparse):
 
         return newM
 
+<<<<<<< HEAD
     #Description: Returns a square identity sparse matrix with the size of "size"*"size", the values of the diagonal being "unitary" and all other values being "zero".
     #Parameters: size -> int, unitary -> float, zero -> float
     #Return: newM -> MatrixSparseDOK
     @staticmethod
     def eye(size: int, unitary: float = 1.0, zero: float = 0.0) -> MatrixSparseDOK:
         if (isinstance(size, int) and size >= 0 and isinstance(unitary, (int, float)) and isinstance(zero, (int, float))):
+=======
+    # Description: Returns a square identity sparse matrix with the size of "size"*"size", the values of the diagonal being "unitary" and all other values being "zero".
+    # Parameters: size -> int, unitary -> float, zero -> float
+    # Return: newM -> MatrixSparseDOK
+    @staticmethod
+    def eye(size: int, unitary: float = 1.0, zero: float = 0.0) -> MatrixSparseDOK:
+        if (isinstance(size, int) and size >= 0 and isinstance(unitary, (int, float)) and isinstance(zero,
+                                                                                                     (int, float))):
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
             newM = MatrixSparseDOK(zero)
 
             for i in range(size):
@@ -279,9 +442,15 @@ class MatrixSparseDOK(MatrixSparse):
         else:
             raise ValueError('eye() invalid parameters')
 
+<<<<<<< HEAD
     #Description: Transposition of the sparse matrix.
     #Parameters: 
     #Return: newM -> MatrixSparseDOK
+=======
+    # Description: Transposition of the sparse matrix.
+    # Parameters:
+    # Return: newM -> MatrixSparseDOK
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def transpose(self) -> MatrixSparseDOK:
         newM = MatrixSparseDOK(self.zero)
         for cord in self._items.keys():
@@ -290,10 +459,17 @@ class MatrixSparseDOK(MatrixSparse):
 
         return newM
 
+<<<<<<< HEAD
     #Description: Compression of a sparse matrix with the double-offset indexing algorithm.
     #             It returns a tuple with 5 elements [upper left position, zero/null value, vector of values, vector of indexes, vector of offsets].
     #Parameters: 
     #Retrun: compressed_matrix -> compressed
+=======
+    # Description: Compression of a sparse matrix with the double-offset indexing algorithm.
+    #             It returns a tuple with 5 elements [upper left position, zero/null value, vector of values, vector of indexes, vector of offsets].
+    # Parameters:
+    # Retrun: compressed_matrix -> compressed
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
     def compress(self) -> compressed:
         if self.sparsity() < 0.5:
             raise ValueError('compress() dense matrix')
@@ -302,7 +478,11 @@ class MatrixSparseDOK(MatrixSparse):
         pos_min = dim_items[0]
         h_items = dim_items[1][0] - dim_items[0][0] + 1
 
+<<<<<<< HEAD
         it = sorted(self._items.keys(), key=lambda k:[k[1], k[0]])
+=======
+        it = sorted(self._items.keys(), key=lambda k: [k[1], k[0]])
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
 
         list_values = [0.0] * len(it)
         list_indexes = [-1] * len(it)
@@ -324,7 +504,11 @@ class MatrixSparseDOK(MatrixSparse):
                 except Exception as e:
                     if first_number != -1:
                         list_aux.append(0.0)
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
             for x in reversed(range(len(list_aux))):
                 if list_aux[x] == 0.0:
                     list_aux.pop(x)
@@ -361,7 +545,11 @@ class MatrixSparseDOK(MatrixSparse):
                                 first = a
                                 c = 1
                             a += 1
+<<<<<<< HEAD
                         else:                            
+=======
+                        else:
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
                             if c == 0:
                                 a += 1
                                 offset += 1
@@ -388,14 +576,22 @@ class MatrixSparseDOK(MatrixSparse):
             it = it_aux.copy()
 
             list_offsets[list_row_offsets[j] - pos_min[0]] = offset
+<<<<<<< HEAD
             
             if it == []:
                 break
         
+=======
+
+            if it == []:
+                break
+
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
         compressed_matrix = (pos_min, float(self.zero), tuple(list_values), tuple(list_indexes), tuple(list_offsets))
 
         return compressed_matrix
 
+<<<<<<< HEAD
     #Description: Check if the position given (pos) is in the vector of the fourth position of the compressed_vector. 
     #             If it's in the vector, than we find the value of the given position in the vector of the third position of the compressed_vector and return it.
     #             If it's not in the vector, we return the zero of the matrix.
@@ -404,10 +600,24 @@ class MatrixSparseDOK(MatrixSparse):
     @staticmethod
     def doi(compressed_vector: compressed, pos: Position) -> float:
         if not(isinstance(compressed_vector, tuple) and isinstance(compressed_vector[0], tuple) and len(compressed_vector[0]) == 2 and isinstance(compressed_vector[1], float) and isinstance(compressed_vector[2], tuple) and isinstance(compressed_vector[3], tuple) and isinstance(compressed_vector[4], tuple)):
+=======
+    # Description: Check if the position given (pos) is in the vector of the fourth position of the compressed_vector.
+    #             If it's in the vector, than we find the value of the given position in the vector of the third position of the compressed_vector and return it.
+    #             If it's not in the vector, we return the zero of the matrix.
+    # Parameters: compressed_vector -> compressed, pos -> Position
+    # Return: pos_value -> float
+    @staticmethod
+    def doi(compressed_vector: compressed, pos: Position) -> float:
+        if not (isinstance(compressed_vector, tuple) and isinstance(compressed_vector[0], tuple) and len(
+                compressed_vector[0]) == 2 and isinstance(compressed_vector[1], float) and isinstance(
+                compressed_vector[2], tuple) and isinstance(compressed_vector[3], tuple) and isinstance(
+                compressed_vector[4], tuple)):
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
             raise ValueError('doi() invalid parameters')
 
         pos_min = compressed_vector[0]
         offset = compressed_vector[4][pos[0] - pos_min[0]]
+<<<<<<< HEAD
         
         if len(compressed_vector[3]) > pos[1] + offset - pos_min[1] and pos[0] == compressed_vector[3][pos[1] + offset - pos_min[1]]:
             pos_value = compressed_vector[2][pos[1] + offset - pos_min[1]]
@@ -422,6 +632,26 @@ class MatrixSparseDOK(MatrixSparse):
     @staticmethod
     def decompress(compressed_vector: compressed) -> MatrixSparse:
         if not(isinstance(compressed_vector, tuple) and isinstance(compressed_vector[0], tuple) and len(compressed_vector[0]) == 2 and isinstance(compressed_vector[1], float) and isinstance(compressed_vector[2], tuple) and isinstance(compressed_vector[3], tuple) and isinstance(compressed_vector[4], tuple)):
+=======
+
+        if len(compressed_vector[3]) > pos[1] + offset - pos_min[1] and pos[0] == compressed_vector[3][
+            pos[1] + offset - pos_min[1]]:
+            pos_value = compressed_vector[2][pos[1] + offset - pos_min[1]]
+        else:
+            pos_value = compressed_vector[1]
+
+        return pos_value
+
+    # Description: Decompression of the given compressed matrix (compressed_vector) into a normal sparse matrix.
+    # Parameters: compressed_vector -> compressed
+    # Return: newM -> MatrixSparse
+    @staticmethod
+    def decompress(compressed_vector: compressed) -> MatrixSparse:
+        if not (isinstance(compressed_vector, tuple) and isinstance(compressed_vector[0], tuple) and len(
+                compressed_vector[0]) == 2 and isinstance(compressed_vector[1], float) and isinstance(
+                compressed_vector[2], tuple) and isinstance(compressed_vector[3], tuple) and isinstance(
+                compressed_vector[4], tuple)):
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
             raise ValueError('decompress() invalid parameters')
 
         newM = MatrixSparseDOK(compressed_vector[1])
@@ -431,5 +661,9 @@ class MatrixSparseDOK(MatrixSparse):
             if compressed_vector[3][x] >= 0:
                 offset = compressed_vector[4][compressed_vector[3][x] - pos_min[0]]
                 newM[(compressed_vector[3][x], x + compressed_vector[0][1] - offset)] = compressed_vector[2][x]
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> dd7f8bd12b48776d1df8a1a9e5b36e792c48846d
         return newM
