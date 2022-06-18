@@ -1,5 +1,5 @@
 from __future__ import annotations
-from asyncio.windows_events import NULL
+#from asyncio.windows_events import NULL
 from sys import getsizeof
 from MatrixSparse import *
 from Position import *
