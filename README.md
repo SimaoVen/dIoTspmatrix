@@ -1,4 +1,4 @@
-# dIoTspmatrix_54990_55927_56159
+# dIoTspmatrix
 
 **NOVA School of Science and Technology | FCT NOVA
 Desenvolvimento e Teste de Sistemas Digitais**
