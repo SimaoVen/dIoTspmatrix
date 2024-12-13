@@ -16,3 +16,6 @@ Desenvolvimento e Teste de Sistemas Digitais**
     • Initial set of public tests provided for initial software development
     • New public tests made available periodically to students for software code refactoring
     • Batch of exhaustive private tests will be executed at the end of the assignment
+
+#
+Last tested: 29/06/2022
